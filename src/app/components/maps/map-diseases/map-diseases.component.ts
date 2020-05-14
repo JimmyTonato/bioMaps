@@ -24,6 +24,9 @@ export class MapDiseasesComponent implements OnInit {
     };
 
     this.view = new MapView(mapViewProperties);
+    this.view.on("click", function(event) {
+      console.log("click event: ", event.mapPoint);
+    });
     
   }
 
