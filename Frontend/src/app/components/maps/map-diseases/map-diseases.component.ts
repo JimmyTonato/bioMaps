@@ -15,7 +15,7 @@ export class MapDiseasesComponent implements OnInit {
     const [Map, MapView, CSVLayer, WebMap] = await loadModules(["esri/Map", "esri/views/MapView", "esri/layers/CSVLayer", "esri/WebMap"]);
 
 
-    const url = "http://127.0.0.1:5000/";
+    const url = "http://127.0.0.1:5000/hola";
 
     const csvLayer = new CSVLayer({
       title: "Hurricanes",
@@ -45,7 +45,7 @@ export class MapDiseasesComponent implements OnInit {
       },
       renderer: {
         type: "unique-value",
-        field: "nada",
+        field: "All",
         uniqueValueInfos: this.createUniqueValueInfos()
       }
     });
