@@ -4,7 +4,7 @@ app = Flask(__name__)
 @app.route('/covid')
 def holamundo():
     
-    return send_file("./data/covid.csv", as_attachment=True)
+    return send_file("./data/covid-bacck.csv", as_attachment=True)
 
 
 

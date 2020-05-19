@@ -15,7 +15,7 @@ export class MapDiseasesComponent implements OnInit {
     const [Map, MapView, CSVLayer, WebMap] = await loadModules(["esri/Map", "esri/views/MapView", "esri/layers/CSVLayer", "esri/WebMap"]);
 
 
-    const url = "http://127.0.0.1:5000/hola";
+    const url = "http://127.0.0.1:5000/covid";
 
     const csvLayer = new CSVLayer({
       title: "Hurricanes",
@@ -45,7 +45,7 @@ export class MapDiseasesComponent implements OnInit {
       },
       renderer: {
         type: "unique-value",
-        field: "All",
+        field: "esta",
         uniqueValueInfos: this.createUniqueValueInfos()
       }
     });
@@ -88,7 +88,7 @@ export class MapDiseasesComponent implements OnInit {
 
     return fireflyImages.map(function(url, i) {
         return {
-            value: 1, // Category number
+            value: 'si', // Category number
             symbol: {
                 type: "picture-marker",
                 url: baseUrl + url
