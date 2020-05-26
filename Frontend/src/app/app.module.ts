@@ -1,5 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { NgxPaginationModule } from 'ngx-pagination';
+import {MatDialogModule} from '@angular/material/dialog'; 
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,7 +17,10 @@ import { RegisterComponent } from './components/user/register/register.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSidenavModule,MatNativeDateModule, MatToolbarModule, MatCheckboxModule, MatFormFieldModule
+
 } from '@angular/material';
+
+
 
 @NgModule({
   declarations: [
@@ -33,7 +41,11 @@ import { MatSidenavModule,MatNativeDateModule, MatToolbarModule, MatCheckboxModu
     MatNativeDateModule,
     MatToolbarModule,
     MatCheckboxModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    NgxPaginationModule,
+    FormsModule,
+    MatDialogModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
