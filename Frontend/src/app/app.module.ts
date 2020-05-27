@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppNavbarComponent } from './shared/components/app-navbar/app-navbar.component';
@@ -11,9 +11,11 @@ import { LoginComponent } from './components/user/login/login.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { MatSidenavModule,MatNativeDateModule, MatToolbarModule, MatCheckboxModule, MatFormFieldModule
-} from '@angular/material';
-
+import { MatListModule, MatSidenavModule,MatNativeDateModule, MatToolbarModule, MatCheckboxModule, MatFormFieldModule,
+  MatSelectModule, MatTableModule, MatDialogModule, MatTabsModule, MatPaginatorModule, MatSortModule} from '@angular/material';
+import { ChartsModule } from 'ng2-charts';
+import { ComponDialogComponent } from './components/maps/map-diseases/compon-dialog/compon-dialog.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +25,8 @@ import { MatSidenavModule,MatNativeDateModule, MatToolbarModule, MatCheckboxModu
     MapMediaComponent,
     LoginComponent,
     RegisterComponent,
+    ComponDialogComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -33,8 +37,23 @@ import { MatSidenavModule,MatNativeDateModule, MatToolbarModule, MatCheckboxModu
     MatNativeDateModule,
     MatToolbarModule,
     MatCheckboxModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatListModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatTableModule,
+    ChartsModule,
+    MatDialogModule,
+    MatTabsModule,
+    MatPaginatorModule,
+    MatSortModule,
+    NgxPaginationModule
+    
   ],
+  entryComponents: [
+    ComponDialogComponent
+ ],
   providers: [],
   bootstrap: [AppComponent]
 })
