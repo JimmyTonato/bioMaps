@@ -1,6 +1,6 @@
 <div class="w-100 h-75 mt-5 d-flex flex-row ">
     <div class="w-25 h-100 ">
-        <button (click)="buttonSend() ">ENviar</button>
+        <button (click)="buttonSend() ">Send</button>
         <div class="overflow-auto w-100 h-75 ml-2">
             <mat-selection-list #country [(ngModel)]=" searchCountries " (ngModelChange)="onNgModelChange($event) ">
                 <mat-list-option *ngFor="let country of listFlags " [value]="country.$name ">
