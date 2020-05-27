@@ -1,5 +1,7 @@
 import MapDiseases.map_deseases as MapDiseases
 from flask import Flask, send_file, jsonify, make_response, request
+import MapNews.app as newsAPI
+import Login.login as users
 app = Flask(__name__)
 
 credential_db = {
@@ -11,7 +13,6 @@ credential_db = {
 
 URL_CONNECT = "mysql+pymysql://"+credential_db['user']+":"+credential_db["password"]+"@"+credential_db["host"]+"/"+credential_db["database"]
    
-
 @app.route('/mapDiseades/covid-19/registeredcountries')
 def registered_countries():
     return MapDiseases.registered_countries(URL_CONNECT)
@@ -30,6 +31,24 @@ def data_to_csv():
 def list_all_result():
     list_countries = request.args.get('countries')
     return MapDiseases.list_all_result(URL_CONNECT, list_countries)
+
+#------------------------------------------------------
+#                   Map News
+#------------------------------------------------------
+@app.route('/mapNewsApi', methods=['GET', 'POST'])
+def runNewsApi():
+    data = newsAPI.getnews()
+    return data
+#------------------------------------------------------
+#                   Users
+#------------------------------------------------------
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.json["username"]
+    password = request.json["password"]
+    
+    return users.login(URL_CONNECT, username, password)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

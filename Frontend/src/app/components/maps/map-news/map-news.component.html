@@ -1,2 +1,44 @@
-<p style="color: white;">map news</p>
+<!--
+@name= map-news.component.html()
+  @author= Mario Alonso Valencia
+  @version= 1.0
+  @description= Main user interface of the MapNews component
+  @date = 25-05-2020
+-->
+
 <div id="mapa"></div>
+<div id="news" *ngIf="totalResults != 0">
+    <form #mapNews="ngForm">
+        <div id="news2">
+            <h6 style="color: white;">You can sort your search</h6>
+            <select class="form-control" [(ngModel)]="filterSelection" name="filterSelection" (change)="onFilter()">
+                <option *ngFor="let lf of listFilters" [value]="lf" style="color: white;">{{lf}}</option>
+            </select>
+            <br><br>
+            <div id="divNews">
+                <h3 style="text-align: center;">News found: {{listNews.length}}</h3>
+                <table class="d-flex bd-highlight" *ngFor="let ln of listNews | paginate: { itemsPerPage: newsPerPage, currentPage: currentPage} ">
+                    <td class="p-2 flex-fill bd-highlight">
+                        <img src="{{ln.urlToImage}}">
+                    </td>
+
+                    <td class="p-2 flex-fill bd-highlight">
+                        <h6>
+                            {{ln.title}}
+                        </h6>
+                        <p style="font-size: 15px;">
+                            {{ln.description}}
+                            <a href="{{ln.url}}">[Learn More]</a>
+                        </p>
+                        <p style="font-size: 15px;"><strong>Published at:</strong> {{ln.publishedAt}}</p>
+                    </td>
+                </table>
+            </div>
+            <div id="paginationDiv">
+                <pagination-controls (pageChange)="currentPage=$event" maxSize="5" directionLinks="true " autoHide="true ">
+                </pagination-controls>
+                <br>
+            </div>
+        </div>
+    </form>
+</div>

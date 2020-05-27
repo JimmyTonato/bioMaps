@@ -1,3 +1,52 @@
-<p>Login</p>
-<a [routerLink]="['/home']">Inciar</a>
-<router-outlet></router-outlet>
+<!--
+@name= login.component.html()
+  @author= Mario Alonso Valencia
+  @version= 1.0
+  @description= Main user interface of the Login component
+  @date = 25-05-2020
+-->
+
+<form #login="ngForm">
+    <div class="container well">
+        <h5 style="color: blue;">Login</h5>
+        <h6>Username:</h6>
+
+        <input type="text" placeholder="User1" value="" name="username" #userName="ngModel" [(ngModel)]="username" required pattern="^[a-zA-Z0-9-]+$">
+
+        <!-- Error div when error required -->
+        <div class="col-sm-4" *ngIf="!userName.pristine && userName.errors && userName.errors.required">
+            <span class="text-danger">Please, the username cannot be empty</span>
+        </div>
+
+        <!-- Error div when error pattern -->
+        <div class="col-sm-4" *ngIf="userName.errors && userName.errors.pattern">
+            <span class="text-danger">The username only accepts letters and numbers</span>
+        </div>
+
+
+
+        <h6>Password:</h6>
+        <input type="password" name="password" value="" #passWord="ngModel" [(ngModel)]="password" pattern="^(?=.*\d).{4,8}$" required>
+
+        <div class="col-sm-4" *ngIf="!passWord.pristine && passWord.errors && passWord.errors.required">
+            <span class="text-danger">Please, the password cannot be empty</span>
+        </div>
+        <!-- Error div when error pattern -->
+        <div class="col-sm-4" *ngIf="passWord.errors && passWord.errors.pattern">
+            <span class="text-danger">Password expression. Password must be between 4 and 8 digits long and include at least one numeric digit.</span>
+        </div>
+        <br>
+        <br>
+
+        <button (click)="userlogin()" class="btn btn-primary" type="button" [disabled]="!login.valid">Check User</button>
+        <br>
+        <a *ngIf="flag == true" [routerLink]="['/home']">Login</a>
+        <a *ngIf="flag == false" class="text-danger">The user is not logged</a>
+
+
+
+
+    </div>
+    <app-root></app-root>
+
+</form>

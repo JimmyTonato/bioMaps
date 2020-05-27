@@ -3,5 +3,38 @@
     padding: 0;
     margin: 0;
     width: 70%;
-    height: 70%;
+    height: 100%;
+    float: left;
+}
+
+#news {
+    width: 30%;
+    height: 100%;
+    float: right;
+    overflow: scroll;
+    color: white;
+}
+
+#news2 {
+    width: 90%;
+    height: 90%;
+    float: right;
+    color: black;
+}
+
+#divNews,
+#paginationDiv {
+    background-color: white;
+    margin-right: 10px;
+}
+
+td,
+p,
+h2,
+h3,
+h6 {}
+
+img {
+    width: 100px;
+    height: 100px;
 }
