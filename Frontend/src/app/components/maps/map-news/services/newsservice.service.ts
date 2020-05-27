@@ -9,7 +9,7 @@ export class NewsserviceService {
 
 coords(latitude, longitude, filterSelection){
     //Connection to import.py
-    let url = "http://localhost:5002/mapNewsApi?latitude="+latitude+"&longitude="+longitude+"&filterSelection="+filterSelection
+    let url = "http://localhost:5000/mapNewsApi?latitude="+latitude+"&longitude="+longitude+"&filterSelection="+filterSelection
     return this.httpClient.get(url);
   }
 }

@@ -4,10 +4,6 @@ import reverse_geocoder as rg
 import pycountry
 import requests
 
-app = Flask(__name__)
-
-
-@app.route('/mapNews', methods=['GET', 'POST'])
 def getnews():
     """MainFunction"""
     #Map properties
@@ -36,6 +32,3 @@ def getnews():
     #Json with all the news
     return responsejson
 
-
-if __name__ == "__main__":
-    app.run(debug=True, port=5002)
