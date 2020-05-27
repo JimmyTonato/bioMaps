@@ -55,7 +55,7 @@ import { VideoComponent } from './components/maps/map-media/video/video.componen
     
   ],
   entryComponents: [
-    ComponDialogComponent
+    VideoComponent
  ],
   providers: [],
   bootstrap: [AppComponent]
