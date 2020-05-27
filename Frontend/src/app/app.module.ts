@@ -12,10 +12,11 @@ import { RegisterComponent } from './components/user/register/register.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatListModule, MatSidenavModule,MatNativeDateModule, MatToolbarModule, MatCheckboxModule, MatFormFieldModule,
-  MatSelectModule, MatTableModule, MatDialogModule, MatTabsModule, MatPaginatorModule, MatSortModule} from '@angular/material';
+  MatSelectModule, MatTableModule, MatDialogModule, MatTabsModule, MatPaginatorModule, MatSortModule, MatCardModule} from '@angular/material';
 import { ChartsModule } from 'ng2-charts';
 import { ComponDialogComponent } from './components/maps/map-diseases/compon-dialog/compon-dialog.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { VideoComponent } from './components/maps/map-media/video/video.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +27,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     LoginComponent,
     RegisterComponent,
     ComponDialogComponent,
+    VideoComponent,
    
   ],
   imports: [
@@ -48,7 +50,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatTabsModule,
     MatPaginatorModule,
     MatSortModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatCardModule
     
   ],
   entryComponents: [

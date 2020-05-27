@@ -2,6 +2,7 @@ import MapDiseases.map_deseases as MapDiseases
 from flask import Flask, send_file, jsonify, make_response, request
 import MapNews.app as newsAPI
 import Login.login as users
+import MapMedia.youtube_api as YT  # name document the youtube API
 app = Flask(__name__)
 
 credential_db = {
@@ -49,6 +50,20 @@ def login():
     
     return users.login(URL_CONNECT, username, password)
 
+#------------------------------------------------------
+#                   Media
+#------------------------------------------------------
+@app.route('/mapMedia/runYoutubeApi/apiRun', methods=['GET', 'POST'])
+def runYoutubeApi():
+    latitud = request.args.get("latitude")
+    longitud = request.args.get("longitude")
+    date1= request.args.get('date1')
+    date2= request.args.get('date2')
+    limit= request.args.get('limit')
 
+    country = YT.JsonData(URL_CONNECT, latitud, longitud)
+
+    data = YT.getting_bbdd(URL_CONNECT, country, date1, date2, limit)
+    return data
 if __name__ == '__main__':
     app.run(debug=True)

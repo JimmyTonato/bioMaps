@@ -1,7 +1,27 @@
 @import url('https://js.arcgis.com/4.15/esri/themes/dark/main.css');
 #mapa {
     padding: 0;
-    margin: 0;
-    width: 70%;
-    height: 70%;
+    margin-top: 2%;
+    height: 50em;
+    width: 100%;
+}
+
+.scrolling {
+    margin-top: 2%;
+    height: 37em;
+    overflow: auto;
+    border: 0px solid #ccc;
+}
+
+.scrolling>div {
+    margin-bottom: 2%;
+}
+
+.example-card {
+    max-width: 400px;
+}
+
+.example-header-image {
+    background-image: url();
+    background-size: cover;
 }
