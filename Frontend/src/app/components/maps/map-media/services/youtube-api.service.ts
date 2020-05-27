@@ -15,10 +15,6 @@ export class YoutubeApiService {
     return this.httpClient.get(url);
   }
 
-  // http://localhost:5000/mapMedia/runYoutubeApi/dataBBDD?country=Germany&date1=20200101&date2=20200501&limit=5
-  // youtube_get_data() {
-  //   let url = "http://localhost:5000/mapMedia/runYoutubeApi/dataBBDD";
-  //   return this.httpClient.get(url);
-  // }
+
 
 }

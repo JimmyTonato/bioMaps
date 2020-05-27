@@ -8,7 +8,7 @@ app = Flask(__name__)
 credential_db = {
     'host':'localhost',
     'user':'root',
-    'password':'Daniel25.',
+    'password':'Root123!',
     'database':'AppBioMap'
 }
 
