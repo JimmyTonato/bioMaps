@@ -7,9 +7,9 @@
   [endSeconds]="60">
 </youtube-player> -->
 
-<h2 mat-dialog-title>Title video</h2>
+<h2 mat-dialog-title>{{data.Title}}</h2>
 <mat-dialog-content class="mat-typography">
-  <iframe width="860px" height="500px" src="https://www.youtube.com/embed/Jn96TOhYH10" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe width="860px" height="500px" [src]="controllerSrc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Close</button>

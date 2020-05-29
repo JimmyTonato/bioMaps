@@ -2,13 +2,13 @@
 #mapa {
     padding: 0;
     margin-top: 2%;
-    height: 50em;
+    height: 47em;
     width: 100%;
 }
 
 .scrolling {
     margin-top: 2%;
-    height: 37em;
+    height: 34em;
     overflow: auto;
     border: 0px solid #ccc;
 }
@@ -18,10 +18,10 @@
 }
 
 .example-card {
-    max-width: 400px;
+    max-width: 350px;
 }
 
 .example-header-image {
-    background-image: url();
+    background-image: url(https://cdn1.iconfinder.com/data/icons/social-media-set-for-free/32/youtube_video_player-512.png);
     background-size: cover;
 }

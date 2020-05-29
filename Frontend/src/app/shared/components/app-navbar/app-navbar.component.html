@@ -62,20 +62,55 @@
     <mat-toolbar color="primary" class="footer">Footer</mat-toolbar>
 </ng-container> -->
 <ng-container>
-    <mat-toolbar color="primary">Header</mat-toolbar>
+  <mat-toolbar class="header">
+      <mat-toolbar-row>
 
-    <mat-sidenav-container class="example-container">
-        <mat-sidenav mode="side" opened class="example-sidenav" [fixedInViewport]=false>
-            <p>mapaNews</p>
-            <a [routerLink]="['/home/mapNews']">Inciar</a>
-            <p>MapaDiseases</p>
-            <a [routerLink]="['/home/mapDiseases']">Inciar</a>
-            <p>MapaMedia</p>
-            <a [routerLink]="['/home/mapMedia']">Inciar</a>
-        </mat-sidenav>
+      </mat-toolbar-row>
+  </mat-toolbar>
 
-        <router-outlet></router-outlet>
-    </mat-sidenav-container>
+  <mat-sidenav-container class="example-container">
+      <mat-sidenav mode="side" opened class="example-sidenav" [fixedInViewport]=false>
+          <p class="text-center mt-4" style="font-size: 2vw;">BioMaps</p>
+          <div class="userArea">
+              <div class="userPicture">
+                  <img src="https://4844w13o336ze0zhw1bllkwi-wpengine.netdna-ssl.com/wp-content/uploads/2017/03/target-audience-persona.jpg" alt="profile picture" />
+              </div>
+              <div class="userName">
+                  Hannah Smith
+              </div>
+              <br>
+              <div class="ui pointing dropdown accountMenu" suiDropdown autoClose="outsideClick">
+                  <div class="menu" suiDropdownMenu>
+                      <div class="item"><i class="fa fa-user-alt"></i> <span>&nbsp; Profile</span></div>
+                  </div>
+              </div>
+              <br>
+              <div class="ui pointing dropdown accountMenu" suiDropdown autoClose="outsideClick">
+                  <div class="menu" suiDropdownMenu>
+                      <div class="item" [routerLink]="['/login']"><i class="fa fa-sign-out-alt"></i> <span>&nbsp; Sign out</span></div>
+                  </div>
+              </div>
 
-    <mat-toolbar color="primary" class="example-footer">Footer</mat-toolbar>
+          </div>
+          <ul class="navigation">
+              <li>
+                  <a [routerLink]="['/home/mapNews']" [ngClass]="classNews ? 'active' : ''" (click)="clickEvent(1)"><i class="fas fa-newspaper"></i><span>Map News</span></a>
+              </li>
+              <li>
+                  <a [routerLink]="['/home/mapMedia']" [ngClass]="classMedia ? 'active' : ''" (click)="clickEvent(2)"><i class="fab fa-youtube"></i><span>Map Media</span></a>
+              </li>
+              <li>
+                  <a [routerLink]="['/home/mapDiseases']" [ngClass]="classDeseases ? 'active' : ''" (click)="clickEvent(3)"><i class="fas fa-virus"></i><span>Map Diseases</span></a>
+              </li>
+          </ul>
+      </mat-sidenav>
+
+      <router-outlet></router-outlet>
+  </mat-sidenav-container>
+
+  <mat-toolbar class="footer">
+      <mat-toolbar-row>
+          <span class="span" style="font-size: 0.6vw;">Copyright ©2020 Jimmy, Mario, Steven</span>
+      </mat-toolbar-row>
+  </mat-toolbar>
 </ng-container>

@@ -15,44 +15,22 @@ import dateutil.parser
 YOUTUBE_READ_WRITE_SCOPE = "https://www.googleapis.com/"
 YOUTUBE_API_SERVICE_NAME = "youtube/"
 YOUTUBE_API_VERSION = "v3/"
-DEVELOPER_KEY = "AIzaSyAaxHHR5GgyWFDHlQnxgVpci1PyeBtWn2Y"
+#DEVELOPER_KEY = "AIzaSyAaxHHR5GgyWFDHlQnxgVpci1PyeBtWn2Y"
 LONGITUD_RADIUS = "1000km"
-MAX_RESULTS = 10
-VIDEO_CATEGORY_ID = 25
-FIRST_SEARCH = "covid"
-SECOND_SEARCH = "España"
+#MAX_RESULTS = 10
+#VIDEO_CATEGORY_ID = 25
+#FIRST_SEARCH = "covid"
+#SECOND_SEARCH = "España"
 
 
-def JsonData(URL_CONNECT, latitud, longitud):
+def JsonData(URL_CONNECT, latitud, longitud, keyAPI, oneSearch, twoSearch, maxVideosSearch, categoryID):
     coordinates = (latitud, longitud)
     country = reverseGeocode(coordinates)
-    url = join_url(country, latitud, longitud)
+    url = join_url(country, latitud, longitud, keyAPI,
+                   oneSearch, twoSearch, maxVideosSearch, categoryID)
     videos = convert_dict(url, country)
     add_videos_bbdd(URL_CONNECT, videos)
-    # jsonVideos = json.dumps(videos, indent=4, sort_keys=True, default=str)
-    #jsonData = getting_bbdd(jsonVideos)
     return country
-
-
-def add_videos_bbdd(URL_CONNECT, videos):
-    df = pd.DataFrame(videos)
-    engine = create_engine(URL_CONNECT)
-    con = engine.connect()
-    df.to_sql(name='videos', con=con, if_exists='append', index=False)
-    con.close()
-
-#SELECT * FROM `videos` where country = 'Spain' ORDER BY publishTime DESC limit 6
-
-# SELECT * FROM `videos` where country = 'Germany' and publishTime BETWEEN '2020-01-01' and '20-05-01' ORDER BY publishTime limit 5
-def getting_bbdd(URL_CONNECT, country, data1, data2, limit):
-    engine = create_engine(URL_CONNECT)
-    con = engine.connect()
-    # and publishTime BETWEEN '%s' and '%s' ORDER BY publishTime limit %s , str(data1), str(data2), str(limit    limit %s"
-    sql = ("SELECT * FROM `videos` where `country` = '%s'  and `publishTime` BETWEEN '%s' and '%s' ORDER BY `publishTime` desc limit %s " % (country, data1, data2, limit))
-    dataVideos = pd.read_sql(sql, con)
-    con.close()
-    jsonVideos = dataVideos.to_json(orient='records', force_ascii=False)
-    return jsonVideos
 
 
 def reverseGeocode(coordinates):
@@ -64,13 +42,13 @@ def reverseGeocode(coordinates):
     return country
 
 
-def join_url(contry, latitud, longitud):
+def join_url(contry, latitud, longitud, keyAPI, oneSearch, twoSearch, maxVideosSearch, categoryID):
     # Funcion join in url
     url = YOUTUBE_READ_WRITE_SCOPE + YOUTUBE_API_SERVICE_NAME + YOUTUBE_API_VERSION + "search?&part=snippet&location=" + \
-        str(latitud) + "%2C" + str(longitud) + "&locationRadius=" + str(LONGITUD_RADIUS) + "&maxResults=" + str(MAX_RESULTS) + \
+        str(latitud) + "%2C" + str(longitud) + "&locationRadius=" + str(LONGITUD_RADIUS) + "&maxResults=" + str(maxVideosSearch) + \
         "&type=video,id&videoCategoryId=" + \
-        str(VIDEO_CATEGORY_ID) + "&q=" + FIRST_SEARCH + \
-        ',' + contry + "&key=" + DEVELOPER_KEY
+        str(categoryID) + "&q=" + oneSearch + \
+        ',' + twoSearch + "&key=" + keyAPI
     print(url)
     return url
 
@@ -80,8 +58,37 @@ def convert_dict(url, country):
     videos = []
     response = requests.get(url)
     response_json = json.loads(response.text)
+
     for i in response_json['items']:
         videos.append({"Country": country, "VideoId": i['id']['videoId'], "ChannelId": i['snippet']['channelId'], "ChannelTitle": i['snippet']['channelTitle'],
                        "Title": i['snippet']['title'], "Description": i['snippet']['description'],
                        "IMG": i['snippet']['thumbnails']['high']['url'], "PublishTime": dateutil.parser.parse(i['snippet']['publishTime']).strftime('%Y-%m-%d')})
     return videos
+
+
+def add_videos_bbdd(URL_CONNECT, videos):
+    df = pd.DataFrame(videos)
+
+    engine = create_engine(URL_CONNECT)
+    con = engine.connect()
+    try:
+      df.to_sql(name='videos', con=con, if_exists='append', index=False)
+    except:
+      print("duplicate not appeden")
+    con.close()
+
+
+# SELECT * FROM `videos` where country = 'Germany' and publishTime BETWEEN '2020-01-01' and '20-05-01' ORDER BY publishTime desc limit 6
+
+def getting_bbdd(URL_CONNECT, country, data1, data2, limit):
+    engine = create_engine(URL_CONNECT)
+    con = engine.connect()
+    if(data1 == "0" and data2 == "0"):
+        sql = ("SELECT * FROM `videos` where `country` = '%s'   ORDER BY `publishTime` desc limit %s " % (country, limit))
+    else:
+        sql = ("SELECT * FROM `videos` where `country` = '%s'  and `publishTime` BETWEEN '%s' and '%s' ORDER BY `publishTime` desc limit %s " %
+               (country, data1, data2, limit))
+    dataVideos = pd.read_sql(sql, con)
+    con.close()
+    jsonVideos = dataVideos.to_json(orient='records', force_ascii=False)
+    return jsonVideos

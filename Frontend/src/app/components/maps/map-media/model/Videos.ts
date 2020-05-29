@@ -1,18 +1,19 @@
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 export class Videos{
   private id: number;
-  private Contry: string;
+  private Country: string;
   private VideoId: string;
   private ChannelId: string;
   private ChannelTitle: string;
   private Title: string;
   private Description: string;
-  private img: string;
+  private img: SafeResourceUrl;
   private PublishTime: Date;
 
-	constructor($id: number=null, $Contry: string=null, $VideoId: string=null, $ChannelId: string=null, $ChannelTitle: string=null, $Title: string=null, $Description: string=null, $img: string=null, $PublishTime: Date) {
+	constructor($id: number=null, $Country: string=null, $VideoId: string=null, $ChannelId: string=null, $ChannelTitle: string=null, $Title: string=null, $Description: string=null, $img: SafeResourceUrl=null, $PublishTime: Date) {
 		this.id = $id;
-		this.Contry = $Contry;
+		this.Country = $Country;
 		this.VideoId = $VideoId;
 		this.ChannelId = $ChannelId;
 		this.ChannelTitle = $ChannelTitle;
@@ -21,6 +22,7 @@ export class Videos{
 		this.img = $img;
 		this.PublishTime = $PublishTime;
 	}
+
 
     /**
      * Getter $id
@@ -31,11 +33,11 @@ export class Videos{
 	}
 
     /**
-     * Getter $Contry
+     * Getter $Country
      * @return {string}
      */
-	public get $Contry(): string {
-		return this.Contry;
+	public get $Country(): string {
+		return this.Country;
 	}
 
     /**
@@ -80,9 +82,9 @@ export class Videos{
 
     /**
      * Getter $img
-     * @return {string}
+     * @return {SafeResourceUrl}
      */
-	public get $img(): string {
+	public get $img(): SafeResourceUrl {
 		return this.img;
 	}
 
@@ -103,11 +105,11 @@ export class Videos{
 	}
 
     /**
-     * Setter $Contry
+     * Setter $Country
      * @param {string} value
      */
-	public set $Contry(value: string) {
-		this.Contry = value;
+	public set $Country(value: string) {
+		this.Country = value;
 	}
 
     /**
@@ -152,9 +154,9 @@ export class Videos{
 
     /**
      * Setter $img
-     * @param {string} value
+     * @param {SafeResourceUrl} value
      */
-	public set $img(value: string) {
+	public set $img(value: SafeResourceUrl) {
 		this.img = value;
 	}
 
@@ -165,6 +167,7 @@ export class Videos{
 	public set $PublishTime(value: Date) {
 		this.PublishTime = value;
 	}
+
 
 
 }
