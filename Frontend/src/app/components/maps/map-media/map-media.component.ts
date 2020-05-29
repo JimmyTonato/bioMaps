@@ -24,19 +24,15 @@ export class MapMediaComponent implements OnInit {
   view: any;
   data_videos: Videos[] = [];
 
-  key_API: string = "AIzaSyCWzeWhB92r3gNrY8YEtafu3aRwIdJ_9MM";
-  // date_start: number = 20200101;
-  // date_end: number = 20200501;
+  key_API: string = "AIzaSyBSThxrcmvFJcgGtiQmU1gRZtNiExYeBR4";
   date_start = "0";
   date_end = "0";
   tmpdate1 = new FormControl();
   tmpdate2 = new FormControl();
   limit: number = 6;
   oneSearch: string = "crisis";
-  //twoSearch: string = "Vaccine";
   twoSearch: string[] = ["covid"];
   MAX_videos_search: number = 20;
-  //valor1 = 0;
   CategoryID: number = 25;
 
   //Imput Search
@@ -53,8 +49,8 @@ export class MapMediaComponent implements OnInit {
     "desinfectant",
     "gloves",
   ];
-  longitude = 41.418758952017185
-  latitude = 2.1623306396477138
+  latitude = 41.418758952017185;
+  longitude = 2.1623306396477138;
   @ViewChild("itemInput", { static: true }) itemInput: ElementRef<
     HTMLInputElement
   >;
@@ -83,11 +79,11 @@ export class MapMediaComponent implements OnInit {
     }, 3000);
 
     this.map(this.longitude, this.latitude);
-    this.get_videos(this.longitude, this.latitude);
+    this.get_videos(this.latitude, this.longitude);
   }
 
   ///////////////////////////////////////////////////
-  // Add Map y configuration
+  // Filter date get the BBDD
   //////////////////////////////////////////////////
 
   //Reset Date form
@@ -106,7 +102,7 @@ export class MapMediaComponent implements OnInit {
       .toLocaleDateString("fr-CA")
       .split("-")
       .join("");
-      this.get_videos( this.longitude,this.latitude );
+    this.get_videos(this.latitude, this.longitude);
     console.log(this.date_start, this.date_end);
   }
 
@@ -157,20 +153,18 @@ export class MapMediaComponent implements OnInit {
       "click",
       function (evt) {
         let pt = view.toMap({ x: evt.x, y: evt.y });
-        this.longitude = pt.longitude
-        this.latitude = pt.latitude
-        this.get_videos( this.longitude,this.latitude );
-        console.log(this.MAX_videos_search);
-
+        this.longitude = pt.longitude;
+        this.latitude = pt.latitude;
+        this.get_videos(this.latitude, this.longitude);
       }.bind(this)
     );
 
     view.graphics.addMany([pointGraphic]);
   }
 
-  ///////////////////////////////////////////////////
+  /////////////////////////////////////////////////////
   // Set and Get parameters, the service connect python
-  //////////////////////////////////////////////////
+  /////////////////////////////////////////////////////
 
   get_videos(latitude, longitude) {
     this.data_videos = [];

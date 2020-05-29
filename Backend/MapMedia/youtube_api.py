@@ -26,8 +26,7 @@ LONGITUD_RADIUS = "1000km"
 def JsonData(URL_CONNECT, latitud, longitud, keyAPI, oneSearch, twoSearch, maxVideosSearch, categoryID):
     coordinates = (latitud, longitud)
     country = reverseGeocode(coordinates)
-    url = join_url(country, latitud, longitud, keyAPI,
-                   oneSearch, twoSearch, maxVideosSearch, categoryID)
+    url = join_url(latitud, longitud, keyAPI, oneSearch, twoSearch, maxVideosSearch, categoryID)
     videos = convert_dict(url, country)
     add_videos_bbdd(URL_CONNECT, videos)
     return country
@@ -42,13 +41,11 @@ def reverseGeocode(coordinates):
     return country
 
 
-def join_url(contry, latitud, longitud, keyAPI, oneSearch, twoSearch, maxVideosSearch, categoryID):
+def join_url(latitud, longitud, keyAPI, oneSearch, twoSearch, maxVideosSearch, categoryID):
     # Funcion join in url
     url = YOUTUBE_READ_WRITE_SCOPE + YOUTUBE_API_SERVICE_NAME + YOUTUBE_API_VERSION + "search?&part=snippet&location=" + \
         str(latitud) + "%2C" + str(longitud) + "&locationRadius=" + str(LONGITUD_RADIUS) + "&maxResults=" + str(maxVideosSearch) + \
-        "&type=video,id&videoCategoryId=" + \
-        str(categoryID) + "&q=" + oneSearch + \
-        ',' + twoSearch + "&key=" + keyAPI
+        "&type=video,id&videoCategoryId=" + str(categoryID) + "&q=" + oneSearch + ',' + twoSearch + "&key=" + keyAPI
     print(url)
     return url
 
@@ -72,9 +69,9 @@ def add_videos_bbdd(URL_CONNECT, videos):
     engine = create_engine(URL_CONNECT)
     con = engine.connect()
     try:
-      df.to_sql(name='videos', con=con, if_exists='append', index=False)
+        df.to_sql(name='videos', con=con, if_exists='append', index=False)
     except:
-      print("duplicate not appeden")
+        print("duplicate not appeden")
     con.close()
 
 
