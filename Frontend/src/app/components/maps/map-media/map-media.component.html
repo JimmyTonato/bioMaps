@@ -1,13 +1,16 @@
 <ngx-spinner>loading...</ngx-spinner>
 <div class="container-fluid row">
 
+<!-- Zone MAP -->
   <div class="col-lg-6 col-md-6 col-sm-12">
+
     <div id="mapa"></div>
   </div>
-
+  <!-- Zone Videos -->
   <div class="col-lg-6 col-md-6 col-sm-12">
 
     <div class="input-group mb-2 d-flex justify-content-between" style="margin-top: 5%; width: 100%;">
+      <!-- Zone the search for etiquet -->
       <mat-chip-list #chipList aria-label="item selection">
         <mat-chip *ngFor="let item of twoSearch" [selectable]="selectable" [removable]="removable"
           (removed)="remove(item)">
@@ -18,46 +21,55 @@
           [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
           (matChipInputTokenEnd)="add($event)">
       </mat-chip-list>
-
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         <mat-option *ngFor="let item of filteredItems | async" [value]="item">
           {{item}}
         </mat-option>
       </mat-autocomplete>
 
+      <!-- Number the videos for views -->
       <mat-form-field appearance="fill">
         <mat-label>Number view videos...</mat-label>
         <input matInput type="number" [(ngModel)]="limit">
       </mat-form-field>
-    </div>
+      <!-- access other component -->
+      <button style="height: 20px;" class="size_button" color="accent" mat-button [routerLink]="['/home/mapMedia/data']"
+        matTooltip="View the graphics of the selected videos" matTooltipClass="example-tooltip-red"
+        aria-label="Button that shows a red tooltip">
+        <mat-icon>equalizer</mat-icon> Statistical graphs...
+      </button>
 
+
+    </div>
+    <!-- Zone videos -->
     <div class="scrolling mt-auto p-2 bd-highlight row" cdkScrollable>
       <div class="col-md-6 col-sm-12" *ngFor="let video of data_videos">
-          <mat-card class="example-card">
-            <mat-card-header>
-              <div mat-card-avatar class="example-header-image"></div>
-              <mat-card-subtitle>{{video.$ChannelTitle}}</mat-card-subtitle>
-            </mat-card-header>
-            <img mat-card-image [src]="video.$img" alt="Photo of a Shiba Inu"
-              style="margin-top: 5%;">
-            <mat-card-content>
-              <mat-card-title>{{video.$Title}}</mat-card-title>
-              <p style="font-size: 12px;">
-                {{video.$Description}}
-              </p>
-              <br>
-              <p>
-                Publication date: {{video.$PublishTime  | date:'fullDate'}}
-              </p>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-stroked-button color="warn" (click)="openDialog(video)">PLAY</button>
-            </mat-card-actions>
-          </mat-card>
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <span>
+              Channel:<mat-card-subtitle [innerHTML]="video.$ChannelTitle"></mat-card-subtitle>
+            </span>
+          </mat-card-header>
+          <img mat-card-image [src]="video.$img" alt="youtube_api_img" style="margin-top: 5%;">
+          <mat-card-content>
+            <mat-card-title [innerHTML]="video.$Title"></mat-card-title>
+            <p style="font-size: 12px;" [innerHTML]="video.$Description">
+            </p>
+            <br>
+            <p>
+              Publication date: {{video.$PublishTime  | date:'fullDate'}}
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-stroked-button color="warn" (click)="openDialog(video)">PLAY</button>
+          </mat-card-actions>
+        </mat-card>
       </div>
     </div>
 
     <div class="d-flex flex-column" style="margin-top: 2%;">
+      <!-- Filter date for videos -->
       <div class="d-flex justify-content-center ">
         <mat-form-field class="">
           <mat-label>Start a date</mat-label>
@@ -72,6 +84,7 @@
           <mat-datepicker touchUi #picker2></mat-datepicker>
         </mat-form-field>
       </div>
+      <!-- botton GET data in BBDD & reset data -->
       <div class="d-flex justify-content-center ">
         <button mat-button color="accent" (click)="getDate()">Get BBDD</button>
         <button mat-button color="accent" class="ml-4" (click)="resetDate()">Reset Date</button>
@@ -79,4 +92,9 @@
     </div>
 
   </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <router-outlet></router-outlet>
+  </div>
+
 </div>

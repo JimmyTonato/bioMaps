@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { AppNavbarComponent } from "./shared/components/app-navbar/app-navbar.component";
+import { AppNavbarComponent } from "./shared/app-navbar/app-navbar.component";
 import { MapNewsComponent } from "./components/maps/map-news/map-news.component";
 import { MapDiseasesComponent } from "./components/maps/map-diseases/map-diseases.component";
 import { MapMediaComponent } from "./components/maps/map-media/map-media.component";
@@ -15,6 +15,8 @@ import { ChartsModule } from "ng2-charts";
 import { ComponDialogComponent } from "./components/maps/map-diseases/compon-dialog/compon-dialog.component";
 import { NgxPaginationModule } from "ngx-pagination";
 import { VideoComponent } from "./components/maps/map-media/video/video.component";
+import { DataComponent } from './components/maps/map-media/data/data.component';
+// Angular material
 import {
   MatListModule,
   MatSidenavModule,
@@ -36,6 +38,7 @@ import {
   MatAutocompleteModule,
   MatChipsModule,
   MatIconModule,
+  MatTooltipModule,
 } from "@angular/material";
 import { A11yModule } from "@angular/cdk/a11y";
 import { DragDropModule } from "@angular/cdk/drag-drop";
@@ -56,6 +59,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     RegisterComponent,
     ComponDialogComponent,
     VideoComponent,
+    DataComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +72,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     NgxPaginationModule,
     NgxSpinnerModule,
     //Angular Material
+    MatTooltipModule,
     A11yModule,
     CdkStepperModule,
     CdkTableModule,

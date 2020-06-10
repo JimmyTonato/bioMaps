@@ -1,11 +1,22 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { Observable, BehaviorSubject } from "rxjs";
+import { Video } from "../model/Video";
 @Injectable({
   providedIn: "root",
 })
 export class YoutubeApiService {
-
   constructor(private httpClient: HttpClient) {}
+
+  private _videos = new BehaviorSubject<Video[]>(null);
+
+  get_videos(): Observable<Video[]> {
+    return this._videos.asObservable();
+  }
+
+  set_videos(videos: Video[]) {
+    this._videos.next(videos);
+  }
 
   youtube(
     latitude,
@@ -44,6 +55,4 @@ export class YoutubeApiService {
 
     return this.httpClient.get(url);
   }
-
-
 }

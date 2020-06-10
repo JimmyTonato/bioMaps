@@ -1,9 +1,9 @@
-import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
+import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation } from "@angular/core";
 import { loadModules } from "esri-loader";
 import { YoutubeApiService } from "./services/youtube-api.service";
 import { MatDialog } from "@angular/material/dialog";
 import { VideoComponent } from "../map-media/video/video.component";
-import { Videos } from "./model/Videos";
+import { Video } from "./model/Video";
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
 import { FormControl } from "@angular/forms";
 import {
@@ -19,18 +19,26 @@ import { NgxSpinnerService } from "ngx-spinner";
   selector: "app-map-media",
   templateUrl: "./map-media.component.html",
   styleUrls: ["./map-media.component.scss"],
+  encapsulation: ViewEncapsulation.None,
 })
 export class MapMediaComponent implements OnInit {
   view: any;
-  data_videos: Videos[] = [];
+  data_videos: Video[] = [];
 
-  key_API: string = "AIzaSyBSThxrcmvFJcgGtiQmU1gRZtNiExYeBR4";
+  // other keys
+  // AIzaSyDXFCuboeYKu7a-eo9Lp9lFoOCR5PEZgB4
+  // AIzaSyBSThxrcmvFJcgGtiQmU1gRZtNiExYeBR4
+  // AIzaSyAaxHHR5GgyWFDHlQnxgVpci1PyeBtWn2Y
+  // AIzaSyCWzeWhB92r3gNrY8YEtafu3aRwIdJ_9MM
+  // AIzaSyAmxoPD9wTXWrIOya8SGWXTugPf5t98oEk
+
+  key_API: string = "AIzaSyAmxoPD9wTXWrIOya8SGWXTugPf5t98oEk";
   date_start = "0";
   date_end = "0";
   tmpdate1 = new FormControl();
   tmpdate2 = new FormControl();
   limit: number = 6;
-  oneSearch: string = "crisis";
+  oneSearch: string = "news";
   twoSearch: string[] = ["covid"];
   MAX_videos_search: number = 20;
   CategoryID: number = 25;
@@ -51,16 +59,15 @@ export class MapMediaComponent implements OnInit {
   ];
   latitude = 41.418758952017185;
   longitude = 2.1623306396477138;
-  @ViewChild("itemInput", { static: true }) itemInput: ElementRef<
-    HTMLInputElement
-  >;
+  @ViewChild("itemInput", { static: true }) itemInput: ElementRef<HTMLInputElement>;
   @ViewChild("auto", { static: true }) matAutocomplete: MatAutocomplete;
 
   constructor(
     private youtubeSerivice: YoutubeApiService,
     public dialog: MatDialog,
     public sanitizer: DomSanitizer,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+
   ) {
     this.filteredItems = this.ItemsCtrl.valueChanges.pipe(
       startWith(null),
@@ -81,6 +88,7 @@ export class MapMediaComponent implements OnInit {
     this.map(this.longitude, this.latitude);
     this.get_videos(this.latitude, this.longitude);
   }
+
 
   ///////////////////////////////////////////////////
   // Filter date get the BBDD
@@ -191,7 +199,7 @@ export class MapMediaComponent implements OnInit {
               element.IMG
             );
             let tmpDate = new Date(element.PublishTime);
-            let video = new Videos(
+            let video = new Video(
               element.id,
               element.Country,
               element.VideoId,
@@ -200,11 +208,16 @@ export class MapMediaComponent implements OnInit {
               element.Title,
               element.Description,
               controllerSrc,
-              tmpDate
+              tmpDate,
+              element.viewCount,
+              element.commentCount,
+              element.likeCount,
+              element.dislikeCount
             );
             this.data_videos.push(video);
           });
-          console.log(this.data_videos);
+          this.youtubeSerivice.set_videos(this.data_videos);
+
         },
         (error) => {
           console.log(
